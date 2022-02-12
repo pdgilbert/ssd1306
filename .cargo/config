@@ -1,8 +1,15 @@
 [target.'cfg(all(target_arch = "arm", target_os = "none"))']
-runner = "probe-run --chip STM32F103C8"
-rustflags = [
-  "-C", "link-arg=-Tlink.x",
-]
+runner = "probe-run --chip STM32F103C8" # bluepill
 
+# The link-arg is needed to link and run, and linking fails if memory.x is not found.
+rustflags = [ "-C", "link-arg=-Tlink.x",]
+
+# For non-bluepill specify --target  to override the default: 
+#    export TARGET=thumbv7m-none-eabi    # bluepill
+#    export TARGET=thumbv7em-none-eabihf # blackpill, discovery-stm32f303
+#
+#    cargo build --target $TARGET 
+
+# Consider removing next to disable setting a default target.
 [build]
 target = "thumbv7m-none-eabi"
