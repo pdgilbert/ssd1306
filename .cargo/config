@@ -4,11 +4,12 @@ runner = "probe-run --chip STM32F103C8" # bluepill
 # The link-arg is needed to link and run, and linking fails if memory.x is not found.
 rustflags = [ "-C", "link-arg=-Tlink.x",]
 
-# For non-bluepill specify --target  to override the default: 
-#    export TARGET=thumbv7m-none-eabi    # bluepill
-#    export TARGET=thumbv7em-none-eabihf # blackpill, discovery-stm32f303
-#
-#    cargo build --target $TARGET 
+#  Note that these settings should be consistent with HAL crates specified 
+#  by  use statements  in the code.
+#    bluepill
+#    cargo build --target thumbv7m-none-eabi 
+#    MEMMAP=stm32f103  cargo build --target thumbv7m-none-eabi  --release  --examples
+#    MEMMAP=stm32f103  cargo build --target thumbv7m-none-eabi  --release  --example text_i2c
 
 # Consider removing next to disable setting a default target.
 [build]
